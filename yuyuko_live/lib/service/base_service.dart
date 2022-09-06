@@ -5,20 +5,25 @@ import 'dart:convert';
 
 /// Create a model by provider a [Map]
 typedef ModelCreator<T> = T? Function(Map<String, dynamic>);
+typedef ApiResult<T> = Future<ServiceResult<T>>;
 
 /// The result of a request from BaseService.
 ///
 /// In case of an error, the error is stored in [errorMessage].
 /// In case of success, the data is stored in [data].
 /// The data can still be empty without errors so make sure to check [isNotEmpty].
+@immutable
 class ServiceResult<T> {
-  T? data;
-  String? errorMessage;
+  final T? data;
+  final String? errorMessage;
 
   bool get hasError => errorMessage != null;
   bool get isNotEmpty => data != null;
 
-  ServiceResult({this.data, this.errorMessage});
+  const ServiceResult({
+    this.data,
+    this.errorMessage,
+  });
 
   /// Returns a new instance of [ServiceResult] with the same data and error.
   ///
