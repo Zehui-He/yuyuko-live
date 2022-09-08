@@ -94,7 +94,7 @@ abstract class BaseService {
         final data = jsonData['data'];
         if (data is Map<String, dynamic>) {
           final result = creator(data);
-          _logger.info('decoded json successfully as $result');
+          // _logger.info('decoded json successfully as $result');
           return ServiceResult(data: result);
         } else {
           _logger.severe('data is not a Map<String, dynamic>');
