@@ -16,12 +16,18 @@ abstract class ShipInformation with _$ShipInformation {
 }
 
 @freezed
-abstract class ShipPRData with _$ShipPRData {
+class ShipPRData with _$ShipPRData {
+  /// See https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models
+  const ShipPRData._();
+
   const factory ShipPRData({
     double? winRate,
     double? averageDamageDealt,
     double? averageFrags,
   }) = _ShipPRData;
+
+  bool get isAvailable =>
+      winRate != null && averageDamageDealt != null && averageFrags != null;
 
   factory ShipPRData.fromJson(Map<String, dynamic> json) =>
       _$ShipPRDataFromJson(json);
