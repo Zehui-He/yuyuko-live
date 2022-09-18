@@ -52,4 +52,17 @@ void main() {
     expect(result.data!.length > 0, isTrue);
     print(result.data?.first.accountId);
   });
+
+  test('Fetch player ID then fetch ship stats on hidden player', () async {
+    final server = GameServer.fromIndex(2);
+    final service = WargamingService(server: server);
+    final playerInfo = await service.getPlayerId('henryquan');
+    //TODO: This shipID represents Alaska(B)
+    final playerShipStatistics = await service.getShipStats(
+        playerInfo.data!.first.accountId.toString(),
+        shipId: '3666786288');
+    expect(playerShipStatistics.data == null, isTrue);
+    expect(
+        playerShipStatistics.errorMessage == 'Player has hidden stats', isTrue);
+  });
 }

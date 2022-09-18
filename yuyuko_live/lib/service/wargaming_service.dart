@@ -40,11 +40,19 @@ class WargamingService extends BaseService {
 
     final reponse = result.data as Map<String, dynamic>?;
     final playerData = reponse?['data'] as Map<String, dynamic>?;
-    final shipData = playerData?.values.first as List?;
-    final List<SingleShipStatistic>? shipStats = shipData?.map((e) {
-      return SingleShipStatistic.fromJson(e as Map<String, dynamic>);
-    }).toList();
-    print(shipStats);
-    return ServiceResult(data: shipStats);
+    // Deal with player with hidden stats
+    try {
+      final shipData = playerData?.values.first as List?;
+      final List<SingleShipStatistic>? shipStats = shipData?.map((e) {
+        return SingleShipStatistic.fromJson(e as Map<String, dynamic>);
+      }).toList();
+      print(shipStats);
+      return ServiceResult(data: shipStats);
+    } catch (e) {
+      return ServiceResult(
+        data: null,
+        errorMessage: 'Player has hidden stats',
+      );
+    }
   }
 }
