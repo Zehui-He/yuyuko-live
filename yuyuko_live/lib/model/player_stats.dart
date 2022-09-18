@@ -5,6 +5,7 @@ part 'player_stats.g.dart';
 
 @freezed
 abstract class SingleShipStatistic with _$SingleShipStatistic {
+  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory SingleShipStatistic({
     Pvp? pvp,
     required int lastBattleTime,
@@ -22,6 +23,7 @@ abstract class SingleShipStatistic with _$SingleShipStatistic {
 
 @freezed
 abstract class Pvp with _$Pvp {
+  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory Pvp({
     required int maxXp,
     required int damageToBuildings,
@@ -37,7 +39,6 @@ abstract class Pvp with _$Pvp {
     required int maxDamageDealtToBuildings,
     required int torpedoAgro,
     required int draws,
-    required int battlesSince510,
     required int planesKilled,
     required int battles,
     required int maxShipsSpotted,
@@ -58,7 +59,6 @@ abstract class Pvp with _$Pvp {
     required int maxPlanesKilled,
     required int maxSuppressionsCount,
     required int teamDroppedCapturePoints,
-    required int battlesSince512,
   }) = _Pvp;
 
   factory Pvp.fromJson(Map<String, dynamic> json) => _$PvpFromJson(json);
@@ -66,6 +66,7 @@ abstract class Pvp with _$Pvp {
 
 @freezed
 abstract class Aircraft with _$Aircraft {
+  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory Aircraft({
     required int maxFragsBattle,
     required int frags,
@@ -77,6 +78,7 @@ abstract class Aircraft with _$Aircraft {
 
 @freezed
 abstract class MainBattery with _$MainBattery {
+  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory MainBattery({
     required int maxFragsBattle,
     required int frags,
