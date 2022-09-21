@@ -27,12 +27,12 @@ abstract class Pvp with _$Pvp {
   const factory Pvp({
     required int maxXp,
     required int damageToBuildings,
-    required MainBattery mainBattery,
+    required Weaponary mainBattery,
     required int suppressionsCount,
     required int maxDamageScouting,
     required int artAgro,
     required int shipsSpotted,
-    required MainBattery secondBattery,
+    required Weaponary secondBattery,
     required int xp,
     required int survivedBattles,
     required int droppedCapturePoints,
@@ -48,9 +48,9 @@ abstract class Pvp with _$Pvp {
     required int maxTotalAgro,
     required int maxFragsBattle,
     required int capturePoints,
-    required Aircraft ramming,
-    required MainBattery torpedoes,
-    required Aircraft aircraft,
+    required Weaponary ramming,
+    required Weaponary torpedoes,
+    required Weaponary aircraft,
     required int survivedWins,
     required int maxDamageDealt,
     required int wins,
@@ -64,28 +64,17 @@ abstract class Pvp with _$Pvp {
   factory Pvp.fromJson(Map<String, dynamic> json) => _$PvpFromJson(json);
 }
 
+// The Mainbatery class and Aircraft class are integrated into the Weaponary class
 @freezed
-abstract class Aircraft with _$Aircraft {
+abstract class Weaponary with _$Weaponary {
   @JsonSerializable(fieldRename: FieldRename.snake)
-  const factory Aircraft({
+  const factory Weaponary({
     required int maxFragsBattle,
     required int frags,
-  }) = _Aircraft;
+    int? hits,
+    int? shots,
+  }) = _Weaponary;
 
-  factory Aircraft.fromJson(Map<String, dynamic> json) =>
-      _$AircraftFromJson(json);
-}
-
-@freezed
-abstract class MainBattery with _$MainBattery {
-  @JsonSerializable(fieldRename: FieldRename.snake)
-  const factory MainBattery({
-    required int maxFragsBattle,
-    required int frags,
-    required int hits,
-    required int shots,
-  }) = _MainBattery;
-
-  factory MainBattery.fromJson(Map<String, dynamic> json) =>
-      _$MainBatteryFromJson(json);
+  factory Weaponary.fromJson(Map<String, dynamic> json) =>
+      _$WeaponaryFromJson(json);
 }

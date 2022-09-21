@@ -40,14 +40,21 @@ class WargamingService extends BaseService {
 
     final reponse = result.data as Map<String, dynamic>?;
     final playerData = reponse?['data'] as Map<String, dynamic>?;
-    // Deal with player with hidden stats
+    // Deal with player with hidden stats or on very first battle
     try {
       final shipData = playerData?.values.first as List?;
       final List<SingleShipStatistic>? shipStats = shipData?.map((e) {
         return SingleShipStatistic.fromJson(e as Map<String, dynamic>);
       }).toList();
-      print(shipStats);
-      return ServiceResult(data: shipStats);
+      _logger.info('Ship stats: $shipStats');
+      if (shipStats == null) {
+        return ServiceResult(
+          data: null,
+          errorMessage: 'First battle on this ship',
+        );
+      } else {
+        return ServiceResult(data: shipStats);
+      }
     } catch (e) {
       return ServiceResult(
         data: null,
