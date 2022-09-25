@@ -13,6 +13,8 @@ class FileService {
 
   DateTime? _lastModified;
 
+  /// Original implementation of load() method.
+  /*
   Future<bool?> load({
     required Duration cycle,
   }) async {
@@ -43,6 +45,30 @@ class FileService {
       return true;
     } on FileSystemException {
       _logger.info('File does not exist');
+      return false;
+    } on Exception catch (e) {
+      _logger.severe('EXCEPTION: $e');
+      return null;
+    }
+  }
+  */
+
+  /// Temperary implementation of load() method.
+  Future<bool?> load() async {
+    if (path == null) return false;
+    final jsonPath = '$path\\tempArenaInfo.json';
+    try {
+      final file = File(jsonPath);
+
+      // load the file regardless if it is modified
+      final json = await file.readAsString();
+      _logger.fine('Loaded json successfully');
+      _json = json;
+
+      return true;
+    } on FileSystemException {
+      _logger.info('File does not exist');
+      print('file not exist');
       return false;
     } on Exception catch (e) {
       _logger.severe('EXCEPTION: $e');
